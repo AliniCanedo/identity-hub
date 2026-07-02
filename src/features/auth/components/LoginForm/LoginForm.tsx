@@ -6,6 +6,8 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
+import { AuthService } from '../../services';
+
 import {
   loginSchema,
   type LoginFormData,
@@ -20,9 +22,15 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  function onSubmit(data: LoginFormData) {
-    console.log(data);
-  }
+    async function onSubmit(data: LoginFormData) {
+        try {
+            const response = await AuthService.login(data);
+
+            console.log(response);
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
