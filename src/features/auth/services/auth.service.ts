@@ -1,17 +1,14 @@
-
 import { api, ENDPOINTS } from '@/services';
-
-import type {
-  LoginRequest,
-  LoginResponse,
-} from './auth.types';
+import {
+  LoginRequestDto,
+  LoginResponseDto,
+} from '../dto';
 
 export class AuthService {
   static async login(
-    payload: LoginRequest,
-  ): Promise<LoginResponse> {
-
-    const { data } = await api.post<LoginResponse>(
+    payload: LoginRequestDto,
+  ): Promise<LoginResponseDto> {
+    const { data } = await api.post<LoginResponseDto>(
       ENDPOINTS.auth.login,
       payload,
     );
