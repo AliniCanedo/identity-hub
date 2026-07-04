@@ -2,6 +2,8 @@
 
 import Link from 'next/link';
 
+import { CreateKycForm } from '@/features/kyc';
+
 import styles from './NewKycPage.module.css';
 
 export function NewKycPage() {
@@ -13,10 +15,7 @@ export function NewKycPage() {
 
       <h1>Nova Validação</h1>
 
-      <p>
-        Nesta tela criaremos um novo processo
-        de validação.
-      </p>
+      <CreateKycForm />
     </main>
   );
 }
