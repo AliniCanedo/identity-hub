@@ -5,6 +5,10 @@ export const ENDPOINTS = {
     refreshToken: '/auth/refresh',
   },
 
+  dashboard: {
+    summary: '/dashboard/summary',
+  },
+
   identity: {
     validate: '/identity/validate',
     uploadDocument: '/identity/document',
