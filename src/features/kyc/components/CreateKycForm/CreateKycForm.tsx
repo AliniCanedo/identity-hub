@@ -63,12 +63,23 @@ export function CreateKycForm() {
 
       <Button
         type="submit"
-        disabled={mutation.isPending}
+        disabled={
+          mutation.isPending ||
+          mutation.isSuccess
+        }
       >
         {mutation.isPending
           ? 'Criando...'
-          : 'Criar'}
+          : mutation.isSuccess
+            ? 'Criado!'
+            : 'Criar'}
       </Button>
+
+      {mutation.isError && (
+        <p>
+          Não foi possível criar a validação.
+        </p>
+      )}
     </form>
   );
 }
