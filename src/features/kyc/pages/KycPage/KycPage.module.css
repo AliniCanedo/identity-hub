@@ -1,20 +1,13 @@
-.container {
+.filters {
   display: flex;
-  flex-direction: column;
-  gap: 32px;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
   align-items: center;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-.content {
-  min-height: 500px;
-
-  border: 1px solid #e5e7eb;
-  border-radius: 12px;
-
-  padding: 24px;
+.filters select {
+  padding: 10px 12px;
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  background: #fff;
 }

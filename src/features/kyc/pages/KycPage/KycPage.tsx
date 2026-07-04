@@ -14,6 +14,9 @@ import styles from './KycPage.module.css';
 
 export function KycPage() {
   const [search, setSearch] = useState('');
+  const [statusFilter, setStatusFilter] = useState<
+    'ALL' | 'APPROVED' | 'PENDING' | 'REJECTED'
+  >('ALL');
 
   const {
     data = [],
@@ -25,12 +28,17 @@ export function KycPage() {
     const value = search.toLowerCase();
 
     return data.filter((item) => {
-      return (
+      const matchesSearch =
         item.name.toLowerCase().includes(value) ||
-        item.document.includes(value)
-      );
+        item.document.includes(value);
+
+      const matchesStatus =
+        statusFilter === 'ALL' ||
+        item.status === statusFilter;
+
+      return matchesSearch && matchesStatus;
     });
-  }, [data, search]);
+  }, [data, search, statusFilter]);
 
   if (isLoading) {
     return <p>Carregando...</p>;
@@ -51,11 +59,42 @@ export function KycPage() {
         <Button>Novo Processo</Button>
       </header>
 
-      <SearchInput
-        value={search}
-        placeholder="Buscar por nome ou documento..."
-        onChange={setSearch}
-      />
+      <div className={styles.filters}>
+        <SearchInput
+          value={search}
+          placeholder="Buscar por nome ou documento..."
+          onChange={setSearch}
+        />
+
+        <select
+          value={statusFilter}
+          onChange={(event) =>
+            setStatusFilter(
+              event.target.value as
+                | 'ALL'
+                | 'APPROVED'
+                | 'PENDING'
+                | 'REJECTED',
+            )
+          }
+        >
+          <option value="ALL">
+            Todos
+          </option>
+
+          <option value="APPROVED">
+            Aprovados
+          </option>
+
+          <option value="PENDING">
+            Pendentes
+          </option>
+
+          <option value="REJECTED">
+            Rejeitados
+          </option>
+        </select>
+      </div>
 
       <DataTable
         rowKey="id"
