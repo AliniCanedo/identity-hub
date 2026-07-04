@@ -11,8 +11,13 @@ import {
   type CreateKycFormData,
   useCreateKyc,
 } from '@/features/kyc';
+import { useState } from 'react';
+import { FileUpload } from '@/components/ui/FileUpload/FileUpload';
 
 export function CreateKycForm() {
+  const [documentFile, setDocumentFile] =
+    useState<File | null>(null);
+
   const {
     register,
     handleSubmit,
@@ -60,6 +65,12 @@ export function CreateKycForm() {
           </option>
         </select>
       </label>
+
+      <FileUpload
+        file={documentFile}
+        onChange={setDocumentFile}
+        accept=".png,.jpg,.jpeg,.pdf"
+      />
 
       <Button
         type="submit"
