@@ -1,0 +1,23 @@
+.container {
+  min-height: 100vh;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  padding: 24px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+
+  padding: 32px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+}
