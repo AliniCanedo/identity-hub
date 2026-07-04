@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
 import { useLogin } from '../../hooks';
-
 import {
   loginSchema,
   type LoginFormData,
 } from '../../schemas/login.schema';
+
+import styles from './LoginForm.module.css';
 
 export function LoginForm() {
   const {
@@ -22,17 +23,25 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-  const loginMutation = useLogin();
+  const {
+    mutate,
+    isPending,
+    isError,
+  } = useLogin();
 
-  async function onSubmit(data: LoginFormData) {
-    loginMutation.mutate(data);
+  function onSubmit(data: LoginFormData) {
+    mutate(data);
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit(onSubmit)}
+    >
       <Input
         id="email"
         label="E-mail"
+        disabled={isPending}
         {...register('email')}
         error={errors.email?.message}
       />
@@ -41,16 +50,23 @@ export function LoginForm() {
         id="password"
         type="password"
         label="Senha"
+        disabled={isPending}
         {...register('password')}
         error={errors.password?.message}
       />
 
       <Button
         type="submit"
-        disabled={loginMutation.isPending}
+        disabled={isPending}
       >
-        {loginMutation.isPending ? 'Entrando...' : 'Entrar'}
+        {isPending ? 'Entrando...' : 'Entrar'}
       </Button>
+
+      {isError && (
+        <p className={styles.error}>
+          Não foi possível realizar o login.
+        </p>
+      )}
     </form>
   );
 }
