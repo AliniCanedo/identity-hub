@@ -35,6 +35,7 @@ export function KycPage() {
 			</header>
 
 			<DataTable
+				rowKey="id"
 				columns={[
 					{
 						key: 'name',

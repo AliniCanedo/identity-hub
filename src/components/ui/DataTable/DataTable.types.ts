@@ -6,7 +6,8 @@ export interface DataTableColumn<T> {
   render?: (value: T[keyof T], row: T) => ReactNode;
 }
 
-export interface DataTableProps<T> {
+export interface DataTableProps<T extends object> {
   columns: DataTableColumn<T>[];
   data: T[];
+  rowKey: keyof T;
 }

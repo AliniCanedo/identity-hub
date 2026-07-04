@@ -5,6 +5,7 @@ import styles from './DataTable.module.css';
 export function DataTable<T extends object>({
   columns,
   data,
+  rowKey,
 }: DataTableProps<T>) {
   return (
     <table className={styles.table}>
@@ -27,14 +28,14 @@ export function DataTable<T extends object>({
           </tr>
         ) : (
           data.map((row, index) => (
-            <tr key={index}>
-              {columns.map((column) => (
-                <td key={String(column.key)}>
-                  {column.render
-                    ? column.render(row[column.key], row)
-                    : String(row[column.key])}
-                </td>
-              ))}
+            <tr key={String(row[rowKey])}>              
+            {columns.map((column) => (
+              <td key={String(column.key)}>
+                {column.render
+                  ? column.render(row[column.key], row)
+                  : String(row[column.key])}
+              </td>
+            ))}
             </tr>
           ))
         )}
