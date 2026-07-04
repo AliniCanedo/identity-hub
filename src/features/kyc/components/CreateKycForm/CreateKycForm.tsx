@@ -5,6 +5,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { useUploadDocument } from '@/features/kyc';
 
 import {
   createKycSchema,
@@ -15,6 +16,8 @@ import { useState } from 'react';
 import { FileUpload } from '@/components/ui/FileUpload/FileUpload';
 
 export function CreateKycForm() {
+  const uploadMutation = useUploadDocument();
+
   const [documentFile, setDocumentFile] =
     useState<File | null>(null);
 
@@ -28,7 +31,17 @@ export function CreateKycForm() {
 
   const mutation = useCreateKyc();
 
-  function onSubmit(data: CreateKycFormData) {
+  async function onSubmit(data: CreateKycFormData) {
+    if (!documentFile) {
+      alert('Selecione um documento.');
+      return;
+    }
+
+    const uploaded =
+      await uploadMutation.mutateAsync(documentFile);
+
+    console.log(uploaded);
+
     mutation.mutate(data);
   }
 
