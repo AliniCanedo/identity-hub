@@ -1,9 +1,13 @@
+import { Card } from '@/components/ui/Card';
+
 export default function DashboardPage() {
   return (
     <>
-      <h2>Dashboard</h2>
+      <h1>Dashboard</h1>
 
-      <p>Bem-vinda ao Identity Hub.</p>
+      <Card title="Status da Plataforma">
+        <p>Bem-vinda ao Identity Hub.</p>
+      </Card>
     </>
   );
 }
