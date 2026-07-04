@@ -2,6 +2,7 @@ import { api, ENDPOINTS } from '@/services';
 
 import type { KycDto } from '../dto';
 import type { CreateKycRequestDto } from '../dto';
+import type { KycDetailsDto } from '../dto';
 
 export class KycService {
   static async list(): Promise<KycDto[]> {
@@ -37,6 +38,15 @@ export class KycService {
         },
       },
     );
+
+    return data;
+  }
+
+  static async details(id: string) {
+    const { data } =
+      await api.get<KycDetailsDto>(
+        ENDPOINTS.kyc.details(id),
+      );
 
     return data;
   }

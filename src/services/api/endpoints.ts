@@ -18,6 +18,7 @@ export const ENDPOINTS = {
   kyc: {
     list: '/kyc',
     upload: '/kyc/upload',
-
+    details: (id: string) => `/kyc/${id}`,
   },
+
 } as const;
