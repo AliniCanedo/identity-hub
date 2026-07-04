@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 type AuthState = {
   accessToken: string | null;
@@ -9,22 +10,29 @@ type AuthState = {
   logout: () => void;
 };
 
-export const useAuthStore = create<AuthState>((set) => ({
-  accessToken: null,
-  refreshToken: null,
-  isAuthenticated: false,
-
-  login: (accessToken, refreshToken) =>
-    set({
-      accessToken,
-      refreshToken,
-      isAuthenticated: true,
-    }),
-
-  logout: () =>
-    set({
+export const useAuthStore = create<AuthState>()(
+  persist(
+    (set) => ({
       accessToken: null,
       refreshToken: null,
       isAuthenticated: false,
+
+      login: (accessToken, refreshToken) =>
+        set({
+          accessToken,
+          refreshToken,
+          isAuthenticated: true,
+        }),
+
+      logout: () =>
+        set({
+          accessToken: null,
+          refreshToken: null,
+          isAuthenticated: false,
+        }),
     }),
-}));
+    {
+      name: 'identity-hub-auth',
+    },
+  ),
+);
