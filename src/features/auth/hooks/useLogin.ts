@@ -14,7 +14,11 @@ export function useLogin(options?: UseLoginOptions) {
     mutationFn: AuthService.login,
 
     onSuccess(data) {
-      login(data.accessToken, data.refreshToken);
+      login(
+        data.user,
+        data.accessToken,
+        data.refreshToken,
+      );
 
       options?.onSuccess?.();
     },
