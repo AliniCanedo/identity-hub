@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import type { ChangeEvent } from 'react';
 
 import type { FileUploadProps } from './FileUpload.types';
@@ -11,6 +12,23 @@ export function FileUpload({
   onChange,
   accept,
 }: FileUploadProps) {
+  const [preview, setPreview] = useState<string>();
+
+  useEffect(() => {
+    if (!file) {
+      setPreview(undefined);
+      return;
+    }
+
+    const objectUrl = URL.createObjectURL(file);
+
+    setPreview(objectUrl);
+
+    return () => {
+      URL.revokeObjectURL(objectUrl);
+    };
+  }, [file]);
+
   function handleChange(
     event: ChangeEvent<HTMLInputElement>,
   ) {
@@ -24,6 +42,14 @@ export function FileUpload({
         accept={accept}
         onChange={handleChange}
       />
+
+      {preview && (
+        <img
+          src={preview}
+          alt="Preview"
+          className={styles.preview}
+        />
+      )}
 
       {file && (
         <p>{file.name}</p>
