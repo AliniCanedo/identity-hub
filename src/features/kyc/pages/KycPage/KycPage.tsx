@@ -1,6 +1,25 @@
+import { DataTable } from '@/components/ui/DataTable';
+import styles from './KycPage.module.css';
 import { Button } from '@/components/ui/Button';
 
-import styles from './KycPage.module.css';
+type Validation = {
+  name: string;
+  document: string;
+  status: string;
+};
+
+const data: Validation[] = [
+  {
+    name: 'João Silva',
+    document: '123.456.789-00',
+    status: 'Aprovado',
+  },
+  {
+    name: 'Maria Souza',
+    document: '987.654.321-00',
+    status: 'Pendente',
+  },
+];
 
 export function KycPage() {
   return (
@@ -11,14 +30,26 @@ export function KycPage() {
           <p>Gerencie os processos de validação.</p>
         </div>
 
-        <Button>
-          Novo Processo
-        </Button>
+        <Button>Novo Processo</Button>
       </header>
 
-      <section className={styles.content}>
-        Em construção...
-      </section>
+      <DataTable
+        columns={[
+          {
+            key: 'name',
+            header: 'Nome',
+          },
+          {
+            key: 'document',
+            header: 'Documento',
+          },
+          {
+            key: 'status',
+            header: 'Status',
+          },
+        ]}
+        data={data}
+      />
     </main>
   );
 }

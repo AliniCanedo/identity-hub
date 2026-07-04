@@ -1,0 +1,23 @@
+.table {
+  width: 100%;
+
+  border-collapse: collapse;
+}
+
+.table th {
+  text-align: left;
+
+  padding: 12px;
+
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.table td {
+  padding: 12px;
+
+  border-bottom: 1px solid #f3f4f6;
+}
+
+.table tbody tr:hover {
+  background: #f9fafb;
+}
