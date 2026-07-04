@@ -21,3 +21,9 @@
 .table tbody tr:hover {
   background: #f9fafb;
 }
+
+.table td[colspan] {
+  text-align: center;
+  padding: 32px;
+  color: #6b7280;
+}

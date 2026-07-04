@@ -19,17 +19,25 @@ export function DataTable<T extends object>({
       </thead>
 
       <tbody>
-        {data.map((row, index) => (
-          <tr key={index}>
-            {columns.map((column) => (
-              <td key={String(column.key)}>
-                {column.render
-                  ? column.render(row[column.key], row)
-                  : String(row[column.key])}
-              </td>
-            ))}
+        {data.length === 0 ? (
+          <tr>
+            <td colSpan={columns.length}>
+              Nenhum registro encontrado.
+            </td>
           </tr>
-        ))}
+        ) : (
+          data.map((row, index) => (
+            <tr key={index}>
+              {columns.map((column) => (
+                <td key={String(column.key)}>
+                  {column.render
+                    ? column.render(row[column.key], row)
+                    : String(row[column.key])}
+                </td>
+              ))}
+            </tr>
+          ))
+        )}
       </tbody>
     </table>
   );
