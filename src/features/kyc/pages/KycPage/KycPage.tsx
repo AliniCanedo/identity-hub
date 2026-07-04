@@ -56,7 +56,11 @@ export function KycPage() {
           <p>Gerencie os processos de validação.</p>
         </div>
 
-        <Button>Novo Processo</Button>
+        <Link href="/kyc/new">
+          <Button>
+            Novo Processo
+          </Button>
+        </Link>
       </header>
 
       <div className={styles.filters}>
@@ -71,10 +75,10 @@ export function KycPage() {
           onChange={(event) =>
             setStatusFilter(
               event.target.value as
-                | 'ALL'
-                | 'APPROVED'
-                | 'PENDING'
-                | 'REJECTED',
+              | 'ALL'
+              | 'APPROVED'
+              | 'PENDING'
+              | 'REJECTED',
             )
           }
         >
