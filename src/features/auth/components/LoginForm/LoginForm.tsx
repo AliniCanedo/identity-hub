@@ -13,8 +13,11 @@ import {
 } from '../../schemas/login.schema';
 
 import styles from './LoginForm.module.css';
+import { useRouter } from 'next/navigation';
 
 export function LoginForm() {
+  const router = useRouter();
+
   const {
     register,
     handleSubmit,
@@ -27,7 +30,11 @@ export function LoginForm() {
     mutate,
     isPending,
     isError,
-  } = useLogin();
+  } = useLogin({
+    onSuccess() {
+      router.push('/dashboard');
+    },
+  });
 
   function onSubmit(data: LoginFormData) {
     mutate(data);
