@@ -6,6 +6,7 @@ import { Badge } from '@/components/ui/Badge';
 import { useKycList } from '../../hooks';
 
 import styles from './KycPage.module.css';
+import Link from 'next/link';
 
 export function KycPage() {
 	const {
@@ -74,6 +75,15 @@ export function KycPage() {
 							}
 						},
 					},
+					{
+					key: 'id',
+					header: 'Ações',
+					render: (_, row) => (
+						<Link href={`/kyc/${row.id}`}>
+						Visualizar
+						</Link>
+					),
+					}
 				]}
 				data={data}
 			/>
