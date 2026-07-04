@@ -1,5 +1,8 @@
+import { AxiosError } from 'axios';
+
 import { useAuthStore } from '@/features/auth';
 
+import { ApiErrorHandler } from './handlers';
 import { api } from './client';
 
 api.interceptors.request.use((config) => {
@@ -15,7 +18,5 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
 
-  (error) => {
-    return Promise.reject(error);
-  },
+  (error: AxiosError) => ApiErrorHandler.handle(error),
 );
