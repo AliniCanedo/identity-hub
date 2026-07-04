@@ -1,12 +1,16 @@
 'use client';
 
 import { Button } from '@/components/ui/Button';
-import { useAuth } from '@/features/auth';
 
 import styles from './Header.module.css';
+import {
+  useAuth,
+  useAuthActions,
+} from '@/features/auth';
 
 export function Header() {
-  const { user, logout } = useAuth();
+const { user } = useAuth();
+const { signOut } = useAuthActions();
 
   return (
     <header className={styles.header}>
@@ -20,7 +24,7 @@ export function Header() {
             <p>{user.email}</p>
           </div>
 
-          <Button onClick={logout}>
+          <Button onClick={signOut} variant="secondary">
             Logout
           </Button>
         </div>
