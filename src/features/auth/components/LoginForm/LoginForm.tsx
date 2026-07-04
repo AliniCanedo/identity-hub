@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 
-import { AuthService } from '../../services';
+import { useLogin } from '../../hooks';
 
 import {
   loginSchema,
@@ -22,15 +22,11 @@ export function LoginForm() {
     resolver: zodResolver(loginSchema),
   });
 
-    async function onSubmit(data: LoginFormData) {
-        try {
-            const response = await AuthService.login(data);
+  const loginMutation = useLogin();
 
-            console.log(response);
-        } catch (error) {
-            console.error(error);
-        }
-    }
+  async function onSubmit(data: LoginFormData) {
+    loginMutation.mutate(data);
+  }
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -49,8 +45,11 @@ export function LoginForm() {
         error={errors.password?.message}
       />
 
-      <Button type="submit">
-        Entrar
+      <Button
+        type="submit"
+        disabled={loginMutation.isPending}
+      >
+        {loginMutation.isPending ? 'Entrando...' : 'Entrar'}
       </Button>
     </form>
   );
