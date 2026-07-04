@@ -1,2 +1,1 @@
-export * from './KycPage';
 export * from './KycDetailsPage';
