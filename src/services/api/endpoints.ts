@@ -14,4 +14,8 @@ export const ENDPOINTS = {
     uploadDocument: '/identity/document',
     liveness: '/identity/liveness',
   },
+
+  kyc: {
+    list: '/kyc',
+  },
 } as const;

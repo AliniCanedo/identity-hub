@@ -1,27 +1,25 @@
-import { DataTable } from '@/components/ui/DataTable';
-import styles from './KycPage.module.css';
 import { Button } from '@/components/ui/Button';
+import { DataTable } from '@/components/ui/DataTable';
 
-type Validation = {
-  name: string;
-  document: string;
-  status: string;
-};
+import { useKycList } from '../../hooks';
 
-const data: Validation[] = [
-  {
-    name: 'João Silva',
-    document: '123.456.789-00',
-    status: 'Aprovado',
-  },
-  {
-    name: 'Maria Souza',
-    document: '987.654.321-00',
-    status: 'Pendente',
-  },
-];
+import styles from './KycPage.module.css';
 
 export function KycPage() {
+  const {
+    data = [],
+    isLoading,
+    isError,
+  } = useKycList();
+
+  if (isLoading) {
+    return <p>Carregando...</p>;
+  }
+
+  if (isError) {
+    return <p>Erro ao carregar validações.</p>;
+  }
+
   return (
     <main className={styles.container}>
       <header className={styles.header}>
