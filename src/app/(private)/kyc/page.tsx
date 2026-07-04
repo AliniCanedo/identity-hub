@@ -1,3 +1,5 @@
-export default function KycPage() {
-  return <h2>Validação de Identidade</h2>;
+import { KycPage } from '@/features/kyc';
+
+export default function Page() {
+  return <KycPage />;
 }
