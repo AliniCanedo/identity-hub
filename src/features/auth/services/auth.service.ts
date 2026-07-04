@@ -1,5 +1,5 @@
 
-import { api } from '@/services';
+import { api, ENDPOINTS } from '@/services';
 
 import type {
   LoginRequest,
@@ -10,8 +10,9 @@ export class AuthService {
   static async login(
     payload: LoginRequest,
   ): Promise<LoginResponse> {
+
     const { data } = await api.post<LoginResponse>(
-      '/auth/login',
+      ENDPOINTS.auth.login,
       payload,
     );
 
