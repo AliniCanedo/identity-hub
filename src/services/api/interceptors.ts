@@ -4,6 +4,7 @@ import { useAuthStore } from '@/features/auth';
 
 import { ApiErrorHandler } from './handlers';
 import { api } from './client';
+import { redirectToLogin } from '../navigation/navigation';
 
 api.interceptors.request.use((config) => {
   const { accessToken } = useAuthStore.getState();
@@ -18,5 +19,15 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (response) => response,
 
-  (error: AxiosError) => ApiErrorHandler.handle(error),
+  (error: AxiosError) => {
+    if (error.response?.status === 401) {
+      const { logout } = useAuthStore.getState();
+
+      logout();
+
+      redirectToLogin();
+    }
+
+    return ApiErrorHandler.handle(error);
+  },
 );
